@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/reverse-date-parser/static/css/main.a617e044.chunk.css",
+    "main.js": "/reverse-date-parser/static/js/main.fc9dd9bb.chunk.js",
+    "main.js.map": "/reverse-date-parser/static/js/main.fc9dd9bb.chunk.js.map",
+    "runtime-main.js": "/reverse-date-parser/static/js/runtime-main.b89a854d.js",
+    "runtime-main.js.map": "/reverse-date-parser/static/js/runtime-main.b89a854d.js.map",
+    "static/js/2.d3d6583b.chunk.js": "/reverse-date-parser/static/js/2.d3d6583b.chunk.js",
+    "static/js/2.d3d6583b.chunk.js.map": "/reverse-date-parser/static/js/2.d3d6583b.chunk.js.map",
+    "static/js/3.83df98bc.chunk.js": "/reverse-date-parser/static/js/3.83df98bc.chunk.js",
+    "static/js/3.83df98bc.chunk.js.map": "/reverse-date-parser/static/js/3.83df98bc.chunk.js.map",
+    "index.html": "/reverse-date-parser/index.html",
+    "static/css/main.a617e044.chunk.css.map": "/reverse-date-parser/static/css/main.a617e044.chunk.css.map",
+    "static/js/2.d3d6583b.chunk.js.LICENSE.txt": "/reverse-date-parser/static/js/2.d3d6583b.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b89a854d.js",
+    "static/js/2.d3d6583b.chunk.js",
+    "static/css/main.a617e044.chunk.css",
+    "static/js/main.fc9dd9bb.chunk.js"
+  ]
+}
