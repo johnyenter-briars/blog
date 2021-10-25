@@ -5,7 +5,7 @@ hexo generate
 
 cd ..
 
-cp . blog-frontend/public .
+cp -r blog-frontend/public .
 
 
 
