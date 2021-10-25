@@ -25,7 +25,7 @@ fn rocket() -> _ {
     rocket::build()
 	.mount("/", FileServer::from(relative!("public")).rank(1))
         .mount(
-            "/reverse-date-parser",
-            FileServer::from(relative!("reverse-date-parser")).rank(2),
+            "/rdp",
+            FileServer::from(relative!("rdp")).rank(2),
         )
 }

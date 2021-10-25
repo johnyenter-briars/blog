@@ -1,3 +1,6 @@
 [submodule "blog-frontend"]
 	path = blog-frontend
 	url = https://github.com/johnyenter-briars/blog-frontend.git
+[submodule "reverse-date-parser"]
+	path = reverse-date-parser
+	url = https://github.com/johnyenter-briars/reverse-date-parser.git
