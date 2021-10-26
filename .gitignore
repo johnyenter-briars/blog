@@ -2,3 +2,4 @@ target/
 public/
 rdp/
 ssh-keys/
+.procnum
