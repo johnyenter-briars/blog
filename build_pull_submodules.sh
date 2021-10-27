@@ -1,20 +1,20 @@
 #!/bin/sh
 
-#build and pull newest theme
-cd blog-frontend/themes/hexo-theme-cactus
-git stash
-git checkout master
-git pull origin master
-
-
-cd ../..
-
-
 #build and pull newest frontend
+cd blog-frontend/
 git stash
 git checkout master
 git pull origin master
 npm install
+
+#build and pull newest theme
+cd themes/hexo-theme-cactus
+git stash
+git checkout master
+git pull origin master
+
+cd ../../
+
 hexo generate
 
 cd ..
