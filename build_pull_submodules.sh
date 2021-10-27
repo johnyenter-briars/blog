@@ -34,6 +34,7 @@ cd reverse-date-parser
 git stash
 git checkout master
 git pull origin master
+npm install
 npm run build
 
 cd ..
