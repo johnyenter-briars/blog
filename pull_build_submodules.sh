@@ -32,7 +32,8 @@ echo "${bold}copying compiled frontend to root"
 cp -r blog-frontend/public .
 
 #only build rdp if we have to
-if [[ $1 == "rdp" ]]; then 
+if [ $1 == "rdp" ]
+then 
 	#build rdp
 	echo "${bold}pulling and building rdp"
 	cd reverse-date-parser
