@@ -33,7 +33,8 @@ cp -r blog-frontend/public .
 
 #only build rdp if we have to
 VAR="rdp"
-if [ $1 = "$VAR" ]; then
+
+if [[ $1 == "$VAR" ]]; then 
 	#build rdp
 	echo "${bold}pulling and building rdp"
 	cd reverse-date-parser
