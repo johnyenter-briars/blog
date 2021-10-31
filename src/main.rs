@@ -1,17 +1,7 @@
 #[cfg(test)]
 mod tests;
 
-use std::net::SocketAddr;
-
-use rocket::{fs::{relative, FileServer}, get, request::FromRequest};
-
-
-
-
-#[get("/")]
-fn index(remote_addr: SocketAddr) -> String {
-    format!("Remote Address: {:?}", remote_addr)
-}
+use rocket::{fs::{relative, FileServer}};
 
 
 #[rocket::launch]
