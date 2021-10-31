@@ -2,8 +2,10 @@
 mod tests;
 
 use rocket::fs::{relative, FileServer};
+use std::fs;
 use std::future::Future;
 use std::io::Cursor;
+use std::io::Write;
 use std::pin::Pin;
 use std::sync::atomic::{AtomicUsize, Ordering};
 
@@ -11,57 +13,77 @@ use rocket::fairing::{Fairing, Info, Kind};
 use rocket::http::{ContentType, Method, Status};
 use rocket::{Data, Request, Response};
 
+use chrono::{self, Utc};
+
+// struct RuntimeData {
+//     start_time: chrono::DateTime<Utc>,
+// }
+
 #[derive(Default)]
-struct Counter {
-    get: AtomicUsize,
-    post: AtomicUsize,
+struct RuntimeData {
+    // get: AtomicUsize,
+    // post: AtomicUsize,
+    start_time: String,
 }
 
 #[rocket::async_trait]
-impl Fairing for Counter {
+impl Fairing for RuntimeData {
     fn info(&self) -> Info {
         Info {
-            name: "GET/POST Counter",
-            kind: Kind::Request | Kind::Response,
+            name: "Collection of Runtime Data",
+            kind: Kind::Request,
         }
     }
 
     async fn on_request(&self, req: &mut Request<'_>, _: &mut Data<'_>) {
-        println!("current number? {:?}", self.get);
-        println!("client ip: {:?}", req.client_ip());
-        if req.method() == Method::Get {
-            self.get.fetch_add(1, Ordering::Relaxed);
-        } else if req.method() == Method::Post {
-            self.post.fetch_add(1, Ordering::Relaxed);
+        let ip = match (req.client_ip(), req.real_ip()) {
+            (None, None) => panic!("No client ip????"),
+            (None, Some(ip)) => ip,
+            (Some(ip), None) => ip,
+            (Some(_), Some(ip)) => ip,
+        };
+
+        let string = format!(
+            "client ip: {} | asset path: {}\n",
+            ip,
+            req.uri().path().to_string()
+        );
+
+        let path = format!("/var/log/jyb-blog/server_log.{}.log", self.start_time);
+
+        use std::fs::OpenOptions;
+
+        let mut file = if let Ok(f) = OpenOptions::new()
+                    .write(true)
+                    .append(true)
+                    .create_new(true)
+                    .open(&path) {
+            f
+        } else {
+            fs::OpenOptions::new()
+                        .write(true)
+                        .append(true)
+                        .open(&path)
+                        .unwrap()
+        };
+
+        match file.write_all(string.as_bytes()) {
+            Ok(_) => return,
+            Err(_) => panic!("Error writing to file!"),
         }
     }
 
-    async fn on_response<'r>(&self, req: &'r Request<'_>, res: &mut Response<'r>) {
-        // Don't change a successful user's response, ever.
-        if res.status() != Status::NotFound {
-            return;
-        }
-
-        if req.method() == Method::Get && req.uri().path() == "/counts" {
-            let get_count = self.get.load(Ordering::Relaxed);
-            let post_count = self.post.load(Ordering::Relaxed);
-
-            let body = format!("Get: {}\nPost: {}", get_count, post_count);
-            res.set_status(Status::Ok);
-            res.set_header(ContentType::Plain);
-            res.set_sized_body(body.len(), Cursor::new(body));
-        }
-    }
+    async fn on_response<'r>(&self, _: &'r Request<'_>, _: &mut Response<'r>) {}
 }
 
 #[rocket::launch]
 fn rocket() -> _ {
-    let counter = Counter {
-        get: AtomicUsize::try_from(0).unwrap(),
-        post: AtomicUsize::try_from(0).unwrap(),
+    let runtime_data = RuntimeData {
+        start_time: chrono::offset::Utc::now().to_string(),
     };
+
     rocket::build()
-        .attach(counter)
+        .attach(runtime_data)
         .mount("/", FileServer::from(relative!("public")).rank(1))
         .mount("/rdp", FileServer::from(relative!("rdp")).rank(2))
 }
