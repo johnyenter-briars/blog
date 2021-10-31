@@ -22,7 +22,8 @@ git pull origin master
 
 cd ../../
 
-echo "${bold}running hexo generate"
+echo "${bold}running hexo clean + generate"
+hexo clean
 hexo generate
 
 cd ..
