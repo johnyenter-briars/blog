@@ -3,3 +3,4 @@ public/
 rdp/
 ssh-keys/
 .procnum
+.vscode
