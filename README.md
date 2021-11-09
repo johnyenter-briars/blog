@@ -1,4 +1,4 @@
-# JYB's Blog Hosting Service 
+# JYB's Blog
 
 Rocket app which acts as hosting service for my personal blog. 
 
