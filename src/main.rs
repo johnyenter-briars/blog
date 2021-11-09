@@ -33,9 +33,16 @@ impl Fairing for RuntimeData {
             (Some(_), Some(ip)) => ip,
         };
 
+        let user_agent = req.headers().get("user-agent").collect::<Vec<&str>>();
+
         let string = format!(
-            "client ip: {} | asset path: {}\n",
+            "Local time: {} | Client ip: {} | Client user agent {} | Request path: {}\n",
+            chrono::offset::Local::now().to_string(),
             ip,
+            match user_agent.first() {
+                Some(s) => s,
+                None => "NA",
+            },
             req.uri().path().to_string()
         );
 
