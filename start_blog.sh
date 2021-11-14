@@ -1,6 +1,6 @@
 #!/bin/sh
-
 cargo build --release
 
-nohup PROFILE=release ./target/release/jyb-blog & 
+PROFILE=release nohup ./target/release/jyb-blog & > jyb-blog.out 2> jyb-blog.err
+
 echo $! > .procnum
