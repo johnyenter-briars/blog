@@ -36,7 +36,7 @@ impl Fairing for RuntimeData {
         let user_agent = req.headers().get("user-agent").collect::<Vec<&str>>();
 
         let string = format!(
-            "Local time: {} | Client ip: {} | Client user agent {} | Request path: {}\n",
+            "Local time: {} | Client ip: {} | Client user agent: {} | Request path: {}\n",
             chrono::offset::Local::now().to_string(),
             ip,
             match user_agent.first() {

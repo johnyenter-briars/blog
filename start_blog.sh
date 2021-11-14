@@ -2,5 +2,5 @@
 
 cargo build --release
 
-PROFILE=release ./target/release/jyb-blog & 
+nohup PROFILE=release ./target/release/jyb-blog & 
 echo $! > .procnum
