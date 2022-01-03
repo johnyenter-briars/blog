@@ -36,6 +36,7 @@ cp -r blog-frontend/public .
 VAR="rdp"
 
 if [[ $1 == "$VAR" ]]; then 
+	export NODE_OPTIONS=--openssl-legacy-provider
 	#build rdp
 	echo "${bold}pulling and building rdp"
 	cd reverse-date-parser
