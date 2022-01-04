@@ -9,6 +9,7 @@ normal=$(tput sgr0)
 while [[ "$#" -gt 0 ]]; do
     case $1 in
         -r|--rdp) RDP_FLAG="$1"; shift ;;
+        -c|--chrust) CHRUST_FLAG=1 ;;
         *) echo "Unknown parameter passed: $1"; exit 1 ;;
     esac
     shift
@@ -59,4 +60,12 @@ if [[ $RDP_FLAG ]]; then
 	echo "${bold}copying over rdp"
 	mkdir rdp
 	cp -r reverse-date-parser/build/* rdp
+fi
+
+if [[ $CHRUST_FLAG ]]; then 
+    cd chrust
+
+	git stash
+	git checkout master
+	git pull origin master
 fi
