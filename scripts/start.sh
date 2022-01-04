@@ -27,7 +27,6 @@ if [[ $CHRUST_FLAG ]]; then
 fi
 
 if [[ $BLOG_FLAG ]]; then 
-    cd ..
     cargo build --release
 
     PROFILE=release nohup ./target/release/jyb-blog > jyb-blog.out 2> jyb-blog.err &
