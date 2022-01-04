@@ -9,39 +9,42 @@ normal=$(tput sgr0)
 while [[ "$#" -gt 0 ]]; do
     case $1 in
         -r|--rdp) RDP_FLAG="$1"; shift ;;
-        -c|--chrust) CHRUST_FLAG=1 ;;
+        -c|--chrust) CHRUST_FLAG="$1" ;;
+        -b|--blog) BLOG_FLAG="$1" ;;
         *) echo "Unknown parameter passed: $1"; exit 1 ;;
     esac
     shift
 done
 
-# build and pull newest frontend
-echo "${bold}pulling front end submodule"
-cd blog-frontend/
-git stash
-git checkout master
-git pull origin master
-echo "${bold}running npm install on frontend"
-npm install
+if [[ $BLOG_FLAG ]]; then 
+	# build and pull newest frontend
+	echo "${bold}pulling front end submodule"
+	cd blog-frontend/
+	git stash
+	git checkout master
+	git pull origin master
+	echo "${bold}running npm install on frontend"
+	npm install
 
-# build and pull newest theme
-echo "${bold}pulling theme submodule"
-cd themes/hexo-theme-cactus
-git stash
-git checkout master
-git pull origin master
+	# build and pull newest theme
+	echo "${bold}pulling theme submodule"
+	cd themes/hexo-theme-cactus
+	git stash
+	git checkout master
+	git pull origin master
 
-cd ../../
+	cd ../../
 
-echo "${bold}running hexo clean + generate"
-hexo clean
-hexo generate
+	echo "${bold}running hexo clean + generate"
+	hexo clean
+	hexo generate
 
-cd ..
+	cd ..
 
-echo "${bold}copying compiled frontend to root"
-# copy front over
-cp -r blog-frontend/public .
+	echo "${bold}copying compiled frontend to root"
+	# copy front over
+	cp -r blog-frontend/public .
+fi
 
 if [[ $RDP_FLAG ]]; then 
 	export NODE_OPTIONS=--openssl-legacy-provider
@@ -68,4 +71,6 @@ if [[ $CHRUST_FLAG ]]; then
 	git stash
 	git checkout master
 	git pull origin master
+
+	cd ..
 fi
