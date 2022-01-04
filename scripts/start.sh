@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # move to root of project
 cd ..
@@ -11,7 +11,6 @@ while [[ "$#" -gt 0 ]]; do
     esac
     shift
 done
-
 
 if [[ $CHRUST_FLAG ]]; then 
     cd chrust

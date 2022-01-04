@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #move to root of project
 cd ..
