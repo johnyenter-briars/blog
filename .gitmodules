@@ -4,3 +4,6 @@
 [submodule "reverse-date-parser"]
 	path = reverse-date-parser
 	url = https://github.com/johnyenter-briars/reverse-date-parser.git
+[submodule "chrust"]
+	path = chrust
+	url = https://github.com/johnyenter-briars/chrust

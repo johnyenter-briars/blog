@@ -1,10 +1,21 @@
 #!/bin/bash
 
+# move to root of project
+cd ..
+
 bold=$(tput bold)
 normal=$(tput sgr0)
 
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+        -r|--rdp) RDP_FLAG="$1"; shift ;;
+        -c|--chrust) CHRUST_FLAG=1 ;;
+        *) echo "Unknown parameter passed: $1"; exit 1 ;;
+    esac
+    shift
+done
 
-#build and pull newest frontend
+# build and pull newest frontend
 echo "${bold}pulling front end submodule"
 cd blog-frontend/
 git stash
@@ -13,7 +24,7 @@ git pull origin master
 echo "${bold}running npm install on frontend"
 npm install
 
-#build and pull newest theme
+# build and pull newest theme
 echo "${bold}pulling theme submodule"
 cd themes/hexo-theme-cactus
 git stash
@@ -29,13 +40,10 @@ hexo generate
 cd ..
 
 echo "${bold}copying compiled frontend to root"
-#copy front over
+# copy front over
 cp -r blog-frontend/public .
 
-#only build rdp if we have to
-VAR="rdp"
-
-if [[ $1 == "$VAR" ]]; then 
+if [[ $RDP_FLAG ]]; then 
 	export NODE_OPTIONS=--openssl-legacy-provider
 	#build rdp
 	echo "${bold}pulling and building rdp"
@@ -52,4 +60,12 @@ if [[ $1 == "$VAR" ]]; then
 	echo "${bold}copying over rdp"
 	mkdir rdp
 	cp -r reverse-date-parser/build/* rdp
+fi
+
+if [[ $CHRUST_FLAG ]]; then 
+    cd chrust
+
+	git stash
+	git checkout master
+	git pull origin master
 fi
