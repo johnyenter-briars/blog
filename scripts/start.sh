@@ -3,13 +3,12 @@
 # move to root of project
 cd ..
 
-while [[ "$#" -gt 0 ]]; do
-    case $1 in
-        -b|--blog) BLOG_FLAG="$1"; shift ;;
-        -c|--chrust) CHRUST_FLAG="$1" ;;
-        *) echo "Unknown parameter passed: $1"; exit 1 ;;
+while getopts b:r:c: flag
+do
+    case "${flag}" in
+        b) BLOG_FLAG=${OPTARG};;
+        c) CHRUST_FLAG=${OPTARG};;
     esac
-    shift
 done
 
 if [[ $CHRUST_FLAG ]]; then 

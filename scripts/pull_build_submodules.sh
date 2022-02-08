@@ -6,14 +6,13 @@ cd ..
 bold=$(tput bold)
 normal=$(tput sgr0)
 
-while [[ "$#" -gt 0 ]]; do
-    case $1 in
-        -r|--rdp) RDP_FLAG="$1"; shift ;;
-        -c|--chrust) CHRUST_FLAG="$1" ;;
-        -b|--blog) BLOG_FLAG="$1" ;;
-        *) echo "Unknown parameter passed: $1"; exit 1 ;;
+while getopts b:r:c: flag
+do
+    case "${flag}" in
+        b) BLOG_FLAG=${OPTARG};;
+        r) RDP_FLAG=${OPTARG};;
+        c) CHRUST_FLAG=${OPTARG};;
     esac
-    shift
 done
 
 if [[ $BLOG_FLAG ]]; then 
