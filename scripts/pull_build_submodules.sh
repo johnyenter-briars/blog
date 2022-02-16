@@ -46,7 +46,6 @@ if [[ $BLOG_FLAG ]]; then
 fi
 
 if [[ $RDP_FLAG ]]; then 
-	export NODE_OPTIONS=--openssl-legacy-provider
 	#build rdp
 	echo "${bold}pulling and building rdp"
 	cd reverse-date-parser
