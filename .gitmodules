@@ -7,3 +7,6 @@
 [submodule "chrust"]
 	path = chrust
 	url = https://github.com/johnyenter-briars/chrust
+[submodule "Grove"]
+	path = Grove
+	url = https://github.com/johnyenter-briars/Grove.git

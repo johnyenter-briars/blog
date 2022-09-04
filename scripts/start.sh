@@ -3,11 +3,12 @@
 # move to root of project
 cd ..
 
-while getopts b:r:c: flag
+while getopts b:c:g: flag
 do
     case "${flag}" in
         b) BLOG_FLAG=${OPTARG};;
         c) CHRUST_FLAG=${OPTARG};;
+        g) GROVE_FLAG=${OPTARG};;
     esac
 done
 
@@ -31,6 +32,12 @@ if [[ $BLOG_FLAG ]]; then
     PROFILE=release nohup ./target/release/jyb-blog > jyb-blog.out 2> jyb-blog.err &
 
     echo $! > .procnum
+fi
+
+if [[ $GROVE_FLAG ]]; then 
+    cd Grove
+
+    ./runGrove.sh
 fi
 
 

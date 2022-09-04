@@ -6,12 +6,13 @@ cd ..
 bold=$(tput bold)
 normal=$(tput sgr0)
 
-while getopts b:r:c: flag
+while getopts b:r:c:g: flag
 do
     case "${flag}" in
         b) BLOG_FLAG=${OPTARG};;
         r) RDP_FLAG=${OPTARG};;
         c) CHRUST_FLAG=${OPTARG};;
+        g) GROVE_FLAG=${OPTARG};;
     esac
 done
 
@@ -65,6 +66,16 @@ fi
 
 if [[ $CHRUST_FLAG ]]; then 
     cd chrust
+
+	git stash
+	git checkout master
+	git pull origin master
+
+	cd ..
+fi
+
+if [[ $GROVE_FLAG ]]; then 
+    cd Grove
 
 	git stash
 	git checkout master
