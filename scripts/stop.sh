@@ -11,3 +11,8 @@ cd ../../../../
 
 # kill blog
 kill -9 $(cat .procnum)
+
+# kill grove
+kill -9 $(pgrep -f runGrove.sh)
+kill -9 $(pgrep -f "flask run")
+

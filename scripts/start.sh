@@ -37,7 +37,9 @@ fi
 if [[ $GROVE_FLAG ]]; then 
     cd Grove
 
-    ./runGrove.sh
+    nohup ./runGrove.sh &
+
+    cd ..
 fi
 
 
