@@ -10,3 +10,6 @@
 [submodule "Grove"]
 	path = Grove
 	url = https://github.com/johnyenter-briars/Grove.git
+[submodule "cal-server"]
+	path = cal-server
+	url = https://github.com/johnyenter-briars/cal-server.git
