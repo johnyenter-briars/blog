@@ -46,8 +46,6 @@ fi
 if [[ $CAL_FLAG ]]; then 
     cd cal-server
 
-    ./build_linux.sh
-    
     ./run.sh
 
     cd ..
