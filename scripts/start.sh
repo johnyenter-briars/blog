@@ -3,12 +3,13 @@
 # move to root of project
 cd ..
 
-while getopts b:c:g: flag
+while getopts b:c:g:a: flag
 do
     case "${flag}" in
         b) BLOG_FLAG=${OPTARG};;
         c) CHRUST_FLAG=${OPTARG};;
         g) GROVE_FLAG=${OPTARG};;
+        a) CAL_FLAG=${OPTARG};;
     esac
 done
 
@@ -42,4 +43,12 @@ if [[ $GROVE_FLAG ]]; then
     cd ..
 fi
 
+if [[ $CAL_FLAG ]]; then 
+    cd cal-server
 
+    ./build_linux.sh
+    
+    ./run.sh
+
+    cd ..
+fi

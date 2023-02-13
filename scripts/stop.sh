@@ -16,3 +16,7 @@ kill -9 $(cat .procnum)
 kill -9 $(pgrep -f runGrove.sh)
 kill -9 $(pgrep -f "flask run")
 
+# kill cal
+cd cal-server
+kill -9 $(cat .procnum)
+cd ..
