@@ -3,94 +3,46 @@
 # move to root of project
 cd ..
 
-bold=$(tput bold)
-normal=$(tput sgr0)
+# build and pull newest frontend
+echo "${bold}pulling front end submodule"
+cd blog-frontend/
+git stash
+git checkout master
+git pull origin master
+echo "${bold}running npm install on frontend"
+npm install
 
-while getopts b:r:c:g:a: flag
-do
-    case "${flag}" in
-        b) BLOG_FLAG=${OPTARG};;
-        r) RDP_FLAG=${OPTARG};;
-        c) CHRUST_FLAG=${OPTARG};;
-        g) GROVE_FLAG=${OPTARG};;
-        a) CAL_FLAG=${OPTARG};;
-    esac
-done
+# build and pull newest theme
+echo "${bold}pulling theme submodule"
+cd themes/hexo-theme-cactus
+git stash
+git checkout master
+git pull origin master
 
-if [[ $BLOG_FLAG ]]; then 
-	# build and pull newest frontend
-	echo "${bold}pulling front end submodule"
-	cd blog-frontend/
-	git stash
-	git checkout master
-	git pull origin master
-	echo "${bold}running npm install on frontend"
-	npm install
+cd ../../
 
-	# build and pull newest theme
-	echo "${bold}pulling theme submodule"
-	cd themes/hexo-theme-cactus
-	git stash
-	git checkout master
-	git pull origin master
+echo "${bold}running hexo clean + generate"
+hexo clean
+hexo generate
 
-	cd ../../
+cd ..
 
-	echo "${bold}running hexo clean + generate"
-	hexo clean
-	hexo generate
+echo "${bold}copying compiled frontend to root"
+# copy front over
+cp -r blog-frontend/public .
 
-	cd ..
+#build rdp
+echo "${bold}pulling and building rdp"
+cd reverse-date-parser
+git stash
+git checkout master
+git pull origin master
+npm install
+npm run build
 
-	echo "${bold}copying compiled frontend to root"
-	# copy front over
-	cp -r blog-frontend/public .
-fi
+cd ..
 
-if [[ $RDP_FLAG ]]; then 
-	#build rdp
-	echo "${bold}pulling and building rdp"
-	cd reverse-date-parser
-	git stash
-	git checkout master
-	git pull origin master
-	npm install
-	npm run build
-
-	cd ..
-
-	#copy rdp over
-	echo "${bold}copying over rdp"
-	mkdir rdp
-	cp -r reverse-date-parser/build/* rdp
-fi
-
-if [[ $CHRUST_FLAG ]]; then 
-    cd chrust
-
-	git stash
-	git checkout master
-	git pull origin master
-
-	cd ..
-fi
-
-if [[ $GROVE_FLAG ]]; then 
-    cd Grove
-
-	git stash
-	git checkout master
-	git pull origin master
-
-	cd ..
-fi
-
-if [[ $CAL_FLAG ]]; then 
-    cd cal-server
-
-	git stash
-	git checkout master
-	git pull origin master
-
-	cd ..
-fi
+#copy rdp over
+echo "${bold}copying over rdp"
+mkdir rdp
+cp -r reverse-date-parser/build/* rdp
